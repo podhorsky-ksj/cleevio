@@ -56,7 +56,7 @@ class ProductControllerTest {
                             .content(jsonString))
                     .andExpect(status().isOk());
         } catch (Exception e) {
-            System.err.println(e);
+            log.error("",e);
             Assertions.fail();
         }
     }
@@ -73,7 +73,7 @@ class ProductControllerTest {
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(content().string(expectedString));
         } catch (Exception e) {
-            System.err.println(e);
+            log.error("",e);
             Assertions.fail();
         }
     }

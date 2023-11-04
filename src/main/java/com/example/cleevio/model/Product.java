@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -22,17 +23,17 @@ import java.util.Objects;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     long id;
 
     @Column
     @NotEmpty(message = "Name is mandatory")
-    @Pattern(regexp = "[a-zA-Z0-9 ]+")
+    @Pattern(regexp = "^[a-zA-Z0-9 ]+$")
     String name;
 
     @Column
     @NotEmpty(message = "Description is mandatory")
-    @Pattern(regexp = "[a-zA-Z0-9 ]+")
+    @Pattern(regexp = "^[a-zA-Z0-9 ]+$")
     String description;
 
     @Column
@@ -41,17 +42,13 @@ public class Product {
 
     @Column
     @DateTimeFormat
+    @CreationTimestamp
     LocalDateTime date;
 
     public Product(final String name, final String description, final Double price) {
         this.name = name;
         this.description = description;
         this.price = price;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        date = LocalDateTime.now();
     }
 
     @Override

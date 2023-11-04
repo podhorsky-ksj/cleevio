@@ -1,0 +1,13 @@
+curl -X POST http://localhost:8080/products -H 'Content-Type: application/json' -d '{"name":"PC","description":"Personal computer","price":30000.0}'
+
+    @Configuration
+    public class LoadDatabase {
+
+        @Bean
+        CommandLineRunner initDatabase(ProductsDao repository) {
+
+            return args -> {
+                repository.persist(new Product("PC", "Personal computer", 30000.0));
+            };
+        }
+    }
